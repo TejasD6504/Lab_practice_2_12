@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Signup - AJ Fitness Hub</title>
+  <link rel="stylesheet" href="/css/signup.css">
+
+</head>
+<body>
+  <div class="container">
+    <div class="logo-section">
+      <h1>⚡ AJ FITNESS HUB</h1>
+      <p>Transform Your Body, Transform Your Life</p>
+    </div>
+
+    <div class="card">
+      <h2>Create Account</h2>
+      <form action="/signup" method="post" autocomplete="on">
+        <div class="form-group">
+          <label for="sname">Full Name</label>
+          <input 
+            id="sname" 
+            name="name" 
+            type="text" 
+            required 
+            placeholder="Enter your full name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="semail">Email Address</label>
+          <input 
+            id="semail" 
+            name="email" 
+            type="email" 
+            required 
+            placeholder="you@example.com"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="scontact">Contact Number</label>
+          <input 
+            id="scontact" 
+            name="contact" 
+            type="tel" 
+            placeholder="Phone number"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="spass">Password</label>
+          <input 
+            id="spass" 
+            name="password" 
+            type="password" 
+            required 
+            placeholder="Choose a strong password"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="srole">Account Type</label>
+          <select id="srole" name="role" required>
+            <option value="user" selected>User - Regular Member</option>
+            <option value="admin">Admin - Management Access</option>
+          </select>
+          <div class="role-info">
+            <p>Choose 'User' for regular gym membership or 'Admin' for management access.</p>
+          </div>
+        </div>
+
+        <button type="submit">Create Account</button>
+
+        <div class="link-section">
+          <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Store - AJ Fitness Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #000;
+      padding: 25px 40px;
+      border-bottom: 3px solid #ffd700;
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      color: #ffd700;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .header-subtitle {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .filters-section {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      margin-bottom: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-label {
+      color: #ffd700;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="search"], select {
+      background: #252525;
+      color: #fff;
+      border: 1px solid #3a3a3a;
+      padding: 12px 15px;
+      border-radius: 4px;
+      outline: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    input[type="search"]:focus, select:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+    }
+
+    input[type="search"]::placeholder {
+      color: #666;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    select option {
+      background: #252525;
+      color: #fff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: #1e1e1e;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .product-image {
+      height: 220px;
+      background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+      background-size: cover;
+      background-position: center;
+      border-bottom: 2px solid #3a3a3a;
+      position: relative;
+    }
+
+    .product-card:hover .product-image {
+      border-bottom-color: #ffd700;
+    }
+
+    .category-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #ffd700;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid #ffd700;
+    }
+
+    .product-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .product-title {
+      color: #ffd700;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.3;
+      flex: 1;
+    }
+
+    .product-price {
+      background: #ffd700;
+      color: #000;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .product-description {
+      color: #bbb;
+      font-size: 14px;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #777;
+      grid-column: 1 / -1;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state small {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .results-count {
+      color: #bbb;
+      font-size: 14px;
+      margin-bottom: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid #3a3a3a;
+    }
+
+    .results-count strong {
+      color: #ffd700;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 20px 20px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .container {
+        padding: 0 15px 30px;
+      }
+
+      .filters-section {
+        flex-direction: column;
+      }
+
+      .filter-group {
+        min-width: 100%;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<% 
+  const initialItems = typeof items !== 'undefined' ? items : [
+    { id:1, name:"AJ Pro Dumbbell Set", category:"Equipment", price:4200, img:"https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg", desc:"Adjustable hex dumbbell set for strength training."},
+    { id:2, name:"Performance T-Shirt", category:"Apparel", price:799, img:"https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg", desc:"Breathable workout tee with quick-dry fabric."},
+    { id:3, name:"Protein Blend 2kg", category:"Supplements", price:3500, img:"https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg", desc:"Whey and vegan blend for post-workout recovery."},
+    { id:4, name:"Yoga Mat Pro", category:"Accessories", price:1200, img:"https://images.pexels.com/photos/3757959/pexels-photo-3757959.jpeg", desc:"Non-slip thick mat for yoga and stretching."},
+    { id:5, name:"Resistance Bands Set", category:"Equipment", price:950, img:"https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg", desc:"Set of 5 bands for mobility and strength."},
+    { id:6, name:"Gym Gloves", category:"Accessories", price:499, img:"https://images.pexels.com/photos/1552243/pexels-photo-1552243.jpeg", desc:"Comfortable grip gloves to protect your hands."}
+  ];
+%>
+
+  <div class="header">
+    <div class="header-content">
+      <h1>🛒 AJ FITNESS HUB — Store</h1>
+      <p class="header-subtitle">Premium fitness equipment, apparel & supplements</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label" for="search">Search Products</label>
+        <input id="search" type="search" placeholder="Search by name, category or description...">
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="Equipment">Equipment</option>
+          <option value="Apparel">Apparel</option>
+          <option value="Supplements">Supplements</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="priceFilter">Price Range</label>
+        <select id="priceFilter">
+          <option value="all">All Prices</option>
+          <option value="under-1000">Under ₹1,000</option>
+          <option value="1000-4000">₹1,000 — ₹4,000</option>
+          <option value="above-4000">Above ₹4,000</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="resultsCount" class="results-count"></div>
+
+    <div id="itemsGrid" class="products-grid" aria-live="polite">
+      <!-- Products injected by JS -->
+    </div>
+  </div>
+
+<script>
+  const items = <%- JSON.stringify(initialItems) %>;
+
+  const itemsGrid = document.getElementById('itemsGrid');
+  const resultsCount = document.getElementById('resultsCount');
+  const searchInput = document.getElementById('search');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const priceFilter = document.getElementById('priceFilter');
+
+  function matchesPriceRange(itemPrice, rangeKey){
+    if(rangeKey === 'all') return true;
+    if(rangeKey === 'under-1000') return itemPrice < 1000;
+    if(rangeKey === '1000-4000') return itemPrice >= 1000 && itemPrice <= 4000;
+    if(rangeKey === 'above-4000') return itemPrice > 4000;
+    return true;
+  }
+
+  function render(list){
+    itemsGrid.innerHTML = '';
+    
+    // Update results count
+    if(list.length > 0) {
+      resultsCount.innerHTML = `Showing <strong>${list.length}</strong> ${list.length === 1 ? 'product' : 'products'}`;
+      resultsCount.style.display = 'block';
+    } else {
+      resultsCount.style.display = 'none';
+    }
+
+    if(!list.length){
+      itemsGrid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <p>No products found</p>
+          <small>Try adjusting your search or filters to find what you're looking for.</small>
+        </div>
+      `;
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    list.forEach(it => {
+      const div = document.createElement('div');
+      div.className = 'product-card';
+      div.innerHTML = `
+        <div class="product-image" style="background-image:url('${it.img.replace(/\?.*$/,"") + (it.img.indexOf('?')===-1 ? '?auto=compress&cs=tinysrgb&w=800' : '')}')">
+          <div class="category-badge">${escapeHtml(it.category)}</div>
+        </div>
+        <div class="product-content">
+          <div class="product-header">
+            <h3 class="product-title">${escapeHtml(it.name)}</h3>
+            <div class="product-price">₹${Number(it.price).toLocaleString()}</div>
+          </div>
+          <div class="product-description">${escapeHtml(it.desc || '')}</div>
+        </div>
+      `;
+      frag.appendChild(div);
+    });
+    itemsGrid.appendChild(frag);
+  }
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+
+  function applyFilters(){
+    const q = searchInput.value.trim().toLowerCase();
+    const cat = categoryFilter.value;
+    const priceKey = priceFilter.value;
+
+    const filtered = items.filter(it => {
+      const inCategory = (cat === 'all') || (it.category === cat);
+      const inPrice = matchesPriceRange(Number(it.price), priceKey);
+      const text = (it.name + ' ' + (it.desc||'') + ' ' + (it.category||'')).toLowerCase();
+      const matchesSearch = q === '' || text.indexOf(q) !== -1;
+      return inCategory && inPrice && matchesSearch;
+    });
+    render(filtered);
+  }
+
+  searchInput.addEventListener('input', () => applyFilters());
+  categoryFilter.addEventListener('change', applyFilters);
+  priceFilter.addEventListener('change', applyFilters);
+
+  render(items);
+</script>
+</body>
+</html>

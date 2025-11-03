@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= trainer %> Packages - AJ Fitness Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #000;
+      padding: 25px 40px;
+      border-bottom: 3px solid #ffd700;
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .back-btn {
+      background-color: #333;
+      color: #ffd700;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      background-color: #444;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .header h1 {
+      color: #ffd700;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .page-title h2 {
+      color: #ffd700;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      color: #bbb;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .packages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .package-card {
+      background: #1e1e1e;
+      border: 2px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 30px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .package-card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2);
+      transform: translateY(-8px);
+    }
+
+    .package-header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #3a3a3a;
+    }
+
+    .package-card:hover .package-header {
+      border-bottom-color: #ffd700;
+    }
+
+    .package-name {
+      color: #ffd700;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .package-features {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-item {
+      background: #252525;
+      color: #fff;
+      padding: 12px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 3px solid #ffd700;
+    }
+
+    .feature-item::before {
+      content: "✓";
+      color: #ffd700;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .package-price {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 2px solid #3a3a3a;
+      border-bottom: 2px solid #3a3a3a;
+    }
+
+    .price-label {
+      color: #bbb;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      color: #ffd700;
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .register-btn {
+      display: block;
+      text-align: center;
+      padding: 14px 20px;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .register-btn:hover {
+      background-color: #ffed4e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #777;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state small {
+      font-size: 14px;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 20px 20px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .container {
+        padding: 0 15px 30px;
+      }
+
+      .page-title h2 {
+        font-size: 24px;
+      }
+
+      .packages-grid {
+        gap: 20px;
+      }
+
+      .package-card {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <a href="javascript:history.back()" class="back-btn">← Back</a>
+      <h1>👤 Trainer Packages</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-title">
+      <h2><%= trainer %></h2>
+    </div>
+    <p class="page-subtitle">Choose the perfect training package for your fitness journey</p>
+
+    <div class="packages-grid">
+      <% if (packages.length > 0) { %>
+        <% packages.forEach(pkg => { %>
+          <div class="package-card">
+            <div class="package-header">
+              <div class="package-name"><%= pkg.package_name %></div>
+            </div>
+
+            <div class="package-features">
+              <% pkg.features.split(',').forEach(f => { %>
+                <div class="feature-item"><%= f.trim() %></div>
+              <% }) %>
+            </div>
+
+            <div class="package-price">
+              <div class="price-label">Package Price</div>
+              <div class="price-amount">₹<%= pkg.price %></div>
+            </div>
+
+            <a href="/<%= id %>/register?trainer=<%= trainer %>&package=<%= pkg.package_name %>" 
+               class="register-btn">Select Package</a>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="empty-state">
+          <div class="empty-state-icon">📦</div>
+          <p>No packages available</p>
+          <small>This trainer doesn't have any packages configured yet.</small>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

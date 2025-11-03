@@ -1,0 +1,102 @@
+      body {
+            background-color: #000;
+            color: #FDF000;
+            font-family: futura,Arial, Helvetica, sans-serif;
+        }
+        
+        .register-form {
+            background: rgba(34,34,34,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 430px;
+            margin: 50px auto;
+            box-shadow:
+                0 8px 32px 0 rgba(253,240,0,0.37),
+                0 1.5px 10px 0 rgba(253,240,0,0.25),
+                0 0 40px 10px rgba(253,240,0,0.15);
+            backdrop-filter: blur(4px);
+            transform: translateY(-20px);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .register-form:hover {
+            box-shadow:
+                0 16px 64px 0 rgba(253,240,0,0.47),
+                0 3px 20px 0 rgba(253,240,0,0.35),
+                0 0 60px 20px rgba(253,240,0,0.25);
+            transform: translateY(-30px) scale(1.03);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #FDF000;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #FDF000;
+            border-radius: 5px;
+            background: #333;
+            color: #FDF000;
+        }
+        input::placeholder {
+            color: #FDF000;
+            opacity: 0.7;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #FDF000;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(253,240,0,0.3);
+        }
+        button:hover {
+            background: #fff700;
+        }
+
+        #headf{
+            font-size: clamp(0.5vw, 5vw, 20vw);
+            height: 10vh;
+            width: 100%;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+            margin-bottom: 20vh;
+            color: white;
+        }
+        #headf::before{
+            content: "REGISTER FORM";
+            position: absolute;
+            color: transparent;
+            scale: 1.4;
+            transform: translate(0px,-30px);
+            color: rgba(69, 68, 68, 0.652);
+            z-index: -2;
+        }
+
+        input:invalid {
+            border-color: black;
+        }
+
+        input:valid {
+            border-color: green;
+        }
+
+        .btn-warning {
+            background-color: #fff700;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(253,240,0,0.3);
+        }

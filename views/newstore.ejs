@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Events - AJ Fitness Hub</title>
+  <style>
+    :root{
+      --bg:#000;
+      --card:#141414;
+      --yellow:#FDF000;
+      --muted:#333;
+      --text:#FDF000;
+    }
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      padding:24px;
+    }
+    .header{
+      max-width:1100px;
+      margin:0 auto 20px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .controls{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    input[type="search"], select {
+      background:var(--card);
+      color:var(--text);
+      border:1px solid rgba(253,240,0,0.18);
+      padding:10px 12px;
+      border-radius:8px;
+      outline:none;
+      min-width:160px;
+    }
+    input[type="search"]::placeholder{ color:rgba(253,240,0,0.6); }
+    .grid{
+      max-width:1100px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap:18px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:14px;
+      border:1px solid rgba(253,240,0,0.08);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .card h3{ margin:0; font-size:1.05rem; color:var(--text); }
+    .meta{ font-size:0.9rem; color:rgba(253,240,0,0.85); display:flex; justify-content:space-between; gap:8px; align-items:center; }
+    .date{ font-weight:700; color:var(--yellow); padding:6px 8px; border-radius:6px; background:rgba(253,240,0,0.06); }
+    .desc{ font-size:0.9rem; color:rgba(253,240,0,0.75); min-height:44px; }
+    .empty{ text-align:center; color:rgba(253,240,0,0.6); padding:40px 8px; }
+    @media (max-width:600px){ .header{ padding:0 6px } input[type="search"], select{ min-width:120px } .grid{ gap:12px } }
+  </style>
+</head>
+<body>
+
+<% 
+  // If server passes `events`, use it; otherwise fallback sample events
+  const initialEvents = typeof events !== 'undefined' ? events : [
+    { id:1, title:"Strength Workshop", category:"Workshop", date:"2025-11-15", time:"10:00 AM", location:"Main Hall", price:199, img:"https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg", desc:"Hands-on barbell techniques for beginners and intermediates." },
+    { id:2, title:"Morning HIIT Class", category:"Class", date:"2025-11-18", time:"06:30 AM", location:"Studio A", price:49, img:"https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg", desc:"High intensity interval training to boost metabolism." },
+    { id:3, title:"Nutrition Seminar", category:"Seminar", date:"2025-12-01", time:"04:00 PM", location:"Conference Room", price:299, img:"https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg", desc:"Learn how to plan meals for muscle gain and fat loss." },
+    { id:4, title:"Local Meet & Compete", category:"Competition", date:"2025-12-10", time:"09:00 AM", location:"Outdoor Arena", price:499, img:"https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg", desc:"Friendly strength & endurance competition for members." }
+  ];
+%>
+
+<div class="header">
+  <h1 style="margin:0; font-size:1.4rem;">AJ Fitness Hub — Events</h1>
+
+  <div class="controls">
+    <input id="search" type="search" placeholder="Search events, e.g. 'HIIT' or 'nutrition'">
+    <select id="categoryFilter">
+      <option value="all">All categories</option>
+      <option value="Workshop">Workshop</option>
+      <option value="Class">Class</option>
+      <option value="Seminar">Seminar</option>
+      <option value="Competition">Competition</option>
+    </select>
+  </div>
+</div>
+
+<div id="grid" class="grid" aria-live="polite"></div>
+
+<script>
+  const events = <%- JSON.stringify(initialEvents) %>;
+  const grid = document.getElementById('grid');
+  const searchInput = document.getElementById('search');
+  const categoryFilter = document.getElementById('categoryFilter');
+
+  function escapeHtml(str){
+    return String(str||'').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+
+  function render(list){
+    grid.innerHTML = '';
+    if(!list.length){
+      grid.innerHTML = '<div class="empty">No events match your search or filters.</div>';
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    list.forEach(ev => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <div style="background-image:url('${escapeHtml(ev.img || '')}'); height:140px; background-size:cover; background-position:center; border-radius:8px; border:1px solid rgba(253,240,0,0.06);"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3>${escapeHtml(ev.title)}</h3>
+          <div class="date">${escapeHtml(ev.date)} ${ev.time? ' • '+escapeHtml(ev.time):''}</div>
+        </div>
+        <div class="meta"><span>${escapeHtml(ev.category)}</span><span style="opacity:0.9">${escapeHtml(ev.location || '')}</span></div>
+        <div class="desc">${escapeHtml(ev.desc || '')}</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+          <div style="color:var(--yellow); font-weight:700">₹${Number(ev.price||0).toLocaleString()}</div>
+          <button onclick="alert('Register: ${escapeHtml(ev.title)}')" style="background:var(--yellow); color:#000; border:none; padding:8px 10px; border-radius:6px; cursor:pointer">Register</button>
+        </div>
+      `;
+      frag.appendChild(div);
+    });
+    grid.appendChild(frag);
+  }
+
+  function applyFilters(){
+    const q = searchInput.value.trim().toLowerCase();
+    const cat = categoryFilter.value;
+    const filtered = events.filter(ev => {
+      const matchesCategory = (cat === 'all') || (ev.category === cat);
+      const text = (ev.title + ' ' + (ev.desc||'') + ' ' + (ev.location||'') + ' ' + (ev.category||'')).toLowerCase();
+      const matchesSearch = q === '' || text.indexOf(q) !== -1;
+      return matchesCategory && matchesSearch;
+    });
+    render(filtered);
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  categoryFilter.addEventListener('change', applyFilters);
+
+  // initial render
+  render(events);
+</script>
+</body>
+</html>

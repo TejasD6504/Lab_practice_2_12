@@ -1,0 +1,185 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .logo-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-section h1 {
+      color: #ffd700;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .logo-section p {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #1e1e1e;
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      color: #ffd700;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #ffd700;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #ffd700;
+      font-weight: 500;
+    }
+
+    input, select {
+      padding: 12px 15px;
+      border-radius: 4px;
+      border: 1px solid #3a3a3a;
+      background: #252525;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+    }
+
+    input::placeholder {
+      color: #666;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    select option {
+      background: #252525;
+      color: #fff;
+    }
+
+    button {
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ffed4e;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .link-section {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #3a3a3a;
+    }
+
+    .link-section p {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .link-section a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .link-section a:hover {
+      color: #ffed4e;
+      text-decoration: underline;
+    }
+
+    .role-info {
+      background: #252525;
+      padding: 12px;
+      border-radius: 4px;
+      border-left: 3px solid #ffd700;
+      margin-top: 5px;
+    }
+
+    .role-info p {
+      color: #bbb;
+      font-size: 12px;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      .logo-section h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      form {
+        gap: 15px;
+      }
+    }

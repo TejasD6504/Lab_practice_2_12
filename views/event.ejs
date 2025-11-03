@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Events - AJ Fitness Hub</title>
+  <link rel="stylesheet" href="/css/event.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div>
+        <h1>⚡ AJ FITNESS HUB — Events</h1>
+        <p class="header-subtitle">Discover and join our upcoming fitness events</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="events-grid">
+      <% if (events && events.length > 0) { %>
+        <% events.forEach(event => { 
+          const eventDate = new Date(event.date);
+          const dateStr = eventDate.toISOString().split('T')[0];
+          const day = eventDate.getDate();
+          const month = eventDate.toLocaleString('default', { month: 'short' });
+        %>
+          <div class="event-card">
+            <div class="event-image" style="background-image: url('<%= event.img %>')">
+              <div class="event-category-badge"><%= event.category %></div>
+            </div>
+            
+            <div class="event-content">
+              <div class="event-header">
+                <h3 class="event-title"><%= event.title %></h3>
+                <div class="event-date">
+                  <span class="event-date-day"><%= day %></span>
+                  <%= month %>
+                </div>
+              </div>
+
+              <div class="event-meta">
+                <div class="event-meta-item">
+                  <span>🕐</span>
+                  <span><%= event.time %></span>
+                </div>
+                <div class="event-meta-item">
+                  <span>📍</span>
+                  <span><%= event.location %></span>
+                </div>
+              </div>
+
+              <div class="event-description">
+                <%= event.description %>
+              </div>
+
+              <div class="event-footer">
+                <div>
+                  <span class="event-price-label">Entry Fee</span>
+                  <div class="event-price">₹<%= event.price %></div>
+                </div>
+                <a class="register-btn" href="/<%= userid %>/registerforevent?event=<%= event.title %>">
+                  Register Now
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <p>No events available at the moment</p>
+          <small>Check back soon for upcoming fitness events and activities!</small>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

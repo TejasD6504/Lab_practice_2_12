@@ -1,0 +1,95 @@
+-- SQL schema and seed data for AJ Fitness Hub (MySQL)
+-- Usage: mysql -u root -p < sql.txt  (or run in MySQL client)
+
+CREATE DATABASE IF NOT EXISTS `aj_fitness` CHARACTER SET = 'utf8mb4' COLLATE = 'utf8mb4_unicode_ci';
+USE `aj_fitness`;
+
+-- store items table (matches server SELECT in server.js)
+CREATE TABLE IF NOT EXISTS `store_items` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `category` VARCHAR(100) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `img` VARCHAR(1024),
+  `desc` TEXT,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- users table
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(150) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `contact` VARCHAR(30),
+  `password_hash` VARCHAR(255),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- packages table (gym membership packages)
+CREATE TABLE IF NOT EXISTS `packages` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(150) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `duration_months` INT NOT NULL DEFAULT 1,
+  `description` TEXT,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- orders + order items for store purchases
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT UNSIGNED,
+  `total` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `status` ENUM('pending','paid','shipped','cancelled') NOT NULL DEFAULT 'pending',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `order_id` INT UNSIGNED NOT NULL,
+  `item_id` INT UNSIGNED NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL DEFAULT 1,
+  `unit_price` DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`item_id`) REFERENCES `store_items`(`id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- trainers table (optional)
+CREATE TABLE IF NOT EXISTS `trainers` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(150) NOT NULL,
+  `role` VARCHAR(100),
+  `bio` TEXT,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- reviews for items
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT UNSIGNED,
+  `item_id` INT UNSIGNED,
+  `rating` TINYINT UNSIGNED NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  `comment` TEXT,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`item_id`) REFERENCES `store_items`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- seed some store items (matches store.ejs fallback items)
+INSERT INTO `store_items` (`name`,`category`,`price`,`img`,`desc`) VALUES
+('AJ Pro Dumbbell Set','Equipment',4200.00,'https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg','Adjustable hex dumbbell set for strength training.'),
+('Performance T-Shirt','Apparel',799.00,'https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg','Breathable workout tee with quick-dry fabric.'),
+('Protein Blend 2kg','Supplements',3500.00,'https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg','Whey and vegan blend for post-workout recovery.'),
+('Yoga Mat Pro','Accessories',1200.00,'https://images.pexels.com/photos/3757959/pexels-photo-3757959.jpeg','Non-slip thick mat for yoga and stretching.'),
+('Resistance Bands Set','Equipment',950.00,'https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg','Set of 5 bands for mobility and strength.'),
+('Gym Gloves','Accessories',499.00,'https://images.pexels.com/photos/1552243/pexels-photo-1552243.jpeg','Comfortable grip gloves to protect your hands.');
+
+-- optional sample packages
+INSERT INTO `packages` (`name`,`price`,`duration_months`,`description`) VALUES
+('Basic Monthly',1200.00,1,'Access to gym equipment and group classes.'),
+('Standard 3 Months',3300.00,3,'Includes 1 free personal training session.'),
+('Premium Annual',12000.00,12,'Unlimited access, 12 PT sessions and nutrition plan.');
+
+-- finished
+SELECT 'Schema and seed data applied.' AS status;
