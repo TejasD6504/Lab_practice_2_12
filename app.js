@@ -270,7 +270,7 @@ GROUP BY
           console.error("❌ Error fetching events:", err);
           return res.status(500).send("Database error while fetching events.");
         }
-        console.log(eventRes);
+        // console.log(eventRes);
 
         // ✅ Step 4: Render dashboard with all data
         res.render("admin.ejs", {
