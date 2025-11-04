@@ -228,11 +228,13 @@ app.get("/:id/admindashboard", (req, res) => {
     }
 
     // ✅ Step 2: Fetch all trainer packages
-    conn.query("SELECT trainer_name, features FROM trainer_packages", (err, trainerRes) => {
+    conn.query("SELECT trainer_name, ANY_VALUE(features) AS features FROM trainer_packages GROUP BY trainer_name;", (err, trainerRes) => {
       if (err) {
         console.error("❌ Error fetching trainer packages:", err);
         return res.status(500).send("Database error while fetching trainer packages.");
       }
+
+      console.log(trainerRes);
 
       // ✅ Step 3: Fetch events and number of participants for each
       const eventsQuery = `
