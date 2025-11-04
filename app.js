@@ -31,6 +31,15 @@ app.get('/signup', async (req , res) => {
     res.render("signup.ejs");
 })
 
+app.get('/about', async (req, res) => {
+    res.render("aboutus.ejs");
+});
+
+app.get('/contact', async (req, res) => {
+    res.render("contactus.ejs");
+});
+
+
 
 app.get("/:id/events", async (req, res) => {
   const { id } = req.params;;

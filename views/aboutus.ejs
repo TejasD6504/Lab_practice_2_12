@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | AJ Fitness Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #000;
+            padding: 25px 40px;
+            border-bottom: 3px solid #FDF000;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background-color: #333;
+            color: #FDF000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #444;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .header h1 {
+            color: #FDF000;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .about-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 60px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-section h1 {
+            text-align: center;
+            color: #FDF000;
+            margin-bottom: 20px;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .about-section h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #FDF000;
+        }
+
+        .about-section p {
+            line-height: 1.9;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #bbb;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #FDF000;
+            font-weight: 700;
+        }
+
+        .mission {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            border-left: 5px solid #FDF000;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
+        }
+
+        .mission h3 {
+            color: #FDF000;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mission p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-box {
+            background: #252525;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #3a3a3a;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover {
+            border-color: #FDF000;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h4 {
+            color: #FDF000;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-box p {
+            color: #bbb;
+            font-size: 0.95rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #FDF000 0%, #ffed4e 100%);
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-section h2 {
+            color: #000;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            color: #000;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-btn {
+            background: #000;
+            color: #FDF000;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .about-section {
+                padding: 30px 20px;
+            }
+
+            .about-section h1 {
+                font-size: 2rem;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="javascript:history.back()" class="back-btn">← Back</a>
+            <h1>📖 About Us</h1>
+        </div>
+    </div>
+
+    <section class="about-section">
+        <h1>About <span class="highlight">AJ Fitness Hub</span></h1>
+        
+        <p>
+            Welcome to <span class="highlight">AJ Fitness Hub</span>, your ultimate destination for health, strength, and transformation! 
+            Founded with the mission to empower individuals to live healthier and stronger lives, we provide a space where 
+            dedication meets motivation. Whether you're a beginner taking your first step toward fitness or a professional athlete, 
+            our gym is equipped to help you achieve your goals.
+        </p>
+
+        <p>
+            With top-quality equipment, certified trainers, and personalized workout programs, we aim to make fitness both 
+            enjoyable and result-driven. Our community of fitness enthusiasts inspires and supports one another, ensuring that 
+            every member stays committed to their journey.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">🏋️</div>
+                <h4>Expert Trainers</h4>
+                <p>Certified professionals with years of experience to guide your fitness journey</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">💪</div>
+                <h4>Modern Equipment</h4>
+                <p>State-of-the-art machines and facilities for all your training needs</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🎯</div>
+                <h4>Personalized Plans</h4>
+                <p>Custom workout programs tailored to your specific goals</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">👥</div>
+                <h4>Supportive Community</h4>
+                <p>A motivating environment with like-minded fitness enthusiasts</p>
+            </div>
+        </div>
+
+        <div class="mission">
+            <h3>Our Mission</h3>
+            <p>
+                To create a fitness community that motivates individuals to embrace an active lifestyle, achieve their 
+                personal best, and build both physical and mental strength through discipline, consistency, and passion.
+            </p>
+        </div>
+
+        <p>
+            At <span class="highlight">AJ Fitness Hub</span>, we believe that fitness is not just about lifting weights — 
+            it's about lifting your spirit, boosting your confidence, and embracing a healthier, happier you. Join us today 
+            and become part of a community that transforms lives, one workout at a time.
+        </p>
+
+        <div class="cta-section">
+            <h2>Ready to Transform Your Life?</h2>
+            <p>Join AJ Fitness Hub today and start your fitness journey with us!</p>
+            <a href="#" class="cta-btn">Get Started Now</a>
+        </div>
+    </section>
+</body>
+</html>
